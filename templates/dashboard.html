@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeadFlow — Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen font-sans antialiased">
+
+    <!-- Top nav -->
+    <nav class="bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <span class="text-lg font-bold text-gray-900 tracking-tight">LeadFlow</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="hidden sm:inline text-sm text-gray-500">Pipeline active</span>
+                    <span class="relative flex h-2.5 w-2.5">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+
+        <!-- Header -->
+        <div class="mb-6 sm:mb-8">
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">Dashboard</h1>
+            <p class="mt-1 text-sm text-gray-500">Track and manage incoming leads in real time</p>
+        </div>
+
+        <!-- Metric cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-6 sm:mb-8">
+            <!-- Total -->
+            <div class="bg-white rounded-xl border border-gray-200 p-4 sm:p-5 shadow-sm">
+                <div class="flex items-center gap-2 mb-2">
+                    <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center">
+                        <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    </div>
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-wider">Total</span>
+                </div>
+                <p class="text-2xl sm:text-3xl font-bold text-gray-900">{{ total }}</p>
+            </div>
+            <!-- Hot -->
+            <div class="bg-white rounded-xl border border-gray-200 p-4 sm:p-5 shadow-sm">
+                <div class="flex items-center gap-2 mb-2">
+                    <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center">
+                        <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/></svg>
+                    </div>
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-wider">Hot</span>
+                </div>
+                <p class="text-2xl sm:text-3xl font-bold text-red-600">{{ hot }}</p>
+            </div>
+            <!-- Warm -->
+            <div class="bg-white rounded-xl border border-gray-200 p-4 sm:p-5 shadow-sm">
+                <div class="flex items-center gap-2 mb-2">
+                    <div class="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center">
+                        <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    </div>
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-wider">Warm</span>
+                </div>
+                <p class="text-2xl sm:text-3xl font-bold text-amber-600">{{ warm }}</p>
+            </div>
+            <!-- Cold -->
+            <div class="bg-white rounded-xl border border-gray-200 p-4 sm:p-5 shadow-sm">
+                <div class="flex items-center gap-2 mb-2">
+                    <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                    </div>
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-wider">Cold</span>
+                </div>
+                <p class="text-2xl sm:text-3xl font-bold text-blue-600">{{ cold }}</p>
+            </div>
+            <!-- Junk -->
+            <div class="bg-white rounded-xl border border-gray-200 p-4 sm:p-5 shadow-sm col-span-2 sm:col-span-1">
+                <div class="flex items-center gap-2 mb-2">
+                    <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center">
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                    </div>
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-wider">Junk</span>
+                </div>
+                <p class="text-2xl sm:text-3xl font-bold text-gray-400">{{ junk }}</p>
+            </div>
+        </div>
+
+        <!-- Leads table -->
+        {% if leads %}
+        <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+            <div class="px-5 py-4 border-b border-gray-100">
+                <h2 class="text-sm font-semibold text-gray-900">All Leads</h2>
+            </div>
+
+            <!-- Desktop table -->
+            <div class="hidden md:block overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="bg-gray-50/80">
+                            <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Score</th>
+                            <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Name</th>
+                            <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Company</th>
+                            <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Email</th>
+                            <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Message</th>
+                            <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">AI Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        {% for lead in leads %}
+                        <tr class="hover:bg-gray-50/60 transition-colors cursor-pointer group" onclick="window.location='/dashboard/lead/{{ loop.index0 }}'">
+                            <td class="px-5 py-4">
+                                {% if lead.classification == 'junk' %}
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-500">Junk</span>
+                                {% elif lead.score == 'hot' %}
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-700 ring-1 ring-inset ring-red-600/20">Hot</span>
+                                {% elif lead.score == 'warm' %}
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-600/20">Warm</span>
+                                {% else %}
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-600/20">Cold</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-5 py-4">
+                                <span class="text-sm font-medium text-gray-900 group-hover:text-indigo-600 transition-colors">{{ lead.name or '—' }}</span>
+                            </td>
+                            <td class="px-5 py-4 text-sm text-gray-600">{{ lead.company or '—' }}</td>
+                            <td class="px-5 py-4 text-sm text-gray-500">{{ lead.email }}</td>
+                            <td class="px-5 py-4"><p class="text-sm text-gray-500 truncate max-w-[240px]">{{ lead.message }}</p></td>
+                            <td class="px-5 py-4"><p class="text-sm text-gray-500 truncate max-w-[220px]">{{ lead.reason }}</p></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Mobile card list -->
+            <div class="md:hidden divide-y divide-gray-100">
+                {% for lead in leads %}
+                <a href="/dashboard/lead/{{ loop.index0 }}" class="block px-4 py-4 hover:bg-gray-50/60 active:bg-gray-100 transition-colors">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="text-sm font-semibold text-gray-900">{{ lead.name or '(no name)' }}</span>
+                        {% if lead.classification == 'junk' %}
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-gray-100 text-gray-500">Junk</span>
+                        {% elif lead.score == 'hot' %}
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-red-50 text-red-700">Hot</span>
+                        {% elif lead.score == 'warm' %}
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-700">Warm</span>
+                        {% else %}
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 text-blue-700">Cold</span>
+                        {% endif %}
+                    </div>
+                    <p class="text-xs text-gray-500 mb-1">{{ lead.company or '—' }}</p>
+                    <p class="text-xs text-gray-400 truncate">{{ lead.reason }}</p>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-12 sm:p-16 text-center">
+            <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
+                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg>
+            </div>
+            <h3 class="text-sm font-semibold text-gray-900 mb-1">No leads yet</h3>
+            <p class="text-sm text-gray-500">Send form submissions to the webhook to get started.</p>
+        </div>
+        {% endif %}
+
+    </main>
+</body>
+</html>
